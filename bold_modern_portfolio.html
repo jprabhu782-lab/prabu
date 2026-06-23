@@ -1,0 +1,247 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0}
+  .port{font-family:'Space Grotesk',sans-serif;color:var(--color-text-primary);background:var(--color-background-primary)}
+  .nav{display:flex;justify-content:space-between;align-items:center;padding:20px 32px;border-bottom:1px solid var(--color-border-tertiary);position:sticky;top:0;background:var(--color-background-primary);z-index:10}
+  .nav-logo{font-family:'Space Mono',monospace;font-size:15px;font-weight:700;letter-spacing:-0.5px}
+  .nav-links{display:flex;gap:24px}
+  .nav-links a{font-size:13px;color:var(--color-text-secondary);text-decoration:none;cursor:pointer;transition:color 0.15s}
+  .nav-links a:hover{color:var(--color-text-primary)}
+  .nav-cta{font-size:13px;font-weight:500;background:var(--color-text-primary);color:var(--color-background-primary);border:none;padding:8px 18px;border-radius:6px;cursor:pointer;transition:opacity 0.15s}
+  .nav-cta:hover{opacity:0.85}
+  .hero{padding:72px 32px 64px;border-bottom:1px solid var(--color-border-tertiary)}
+  .hero-tag{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--color-text-secondary);text-transform:uppercase;margin-bottom:20px}
+  .hero-name{font-size:clamp(42px,8vw,76px);font-weight:700;line-height:1.0;letter-spacing:-2px;margin-bottom:24px}
+  .hero-name span{color:var(--color-text-secondary)}
+  .hero-desc{font-size:17px;color:var(--color-text-secondary);max-width:520px;line-height:1.65;margin-bottom:36px}
+  .hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+  .btn-primary{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:500;background:var(--color-text-primary);color:var(--color-background-primary);border:none;padding:12px 24px;border-radius:6px;cursor:pointer;transition:opacity 0.15s}
+  .btn-primary:hover{opacity:0.85}
+  .btn-secondary{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:500;background:transparent;color:var(--color-text-primary);border:1px solid var(--color-border-primary);padding:12px 24px;border-radius:6px;cursor:pointer;transition:background 0.15s}
+  .btn-secondary:hover{background:var(--color-background-secondary)}
+  .stats{display:flex;gap:0;border-bottom:1px solid var(--color-border-tertiary)}
+  .stat{flex:1;padding:28px 32px;border-right:1px solid var(--color-border-tertiary)}
+  .stat:last-child{border-right:none}
+  .stat-num{font-family:'Space Mono',monospace;font-size:28px;font-weight:700;letter-spacing:-1px;margin-bottom:4px}
+  .stat-label{font-size:12px;color:var(--color-text-secondary);letter-spacing:0.5px}
+  .section{padding:56px 32px;border-bottom:1px solid var(--color-border-tertiary)}
+  .section-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:36px}
+  .section-title{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--color-text-secondary);text-transform:uppercase}
+  .section-link{font-size:13px;color:var(--color-text-secondary);cursor:pointer;text-decoration:none}
+  .section-link:hover{color:var(--color-text-primary)}
+  .work-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:var(--color-border-tertiary);border:1px solid var(--color-border-tertiary)}
+  .work-card{background:var(--color-background-primary);padding:28px;cursor:pointer;transition:background 0.15s;position:relative;overflow:hidden}
+  .work-card:hover{background:var(--color-background-secondary)}
+  .work-card:hover .work-arrow{transform:translate(4px,-4px)}
+  .work-num{font-family:'Space Mono',monospace;font-size:11px;color:var(--color-text-secondary);margin-bottom:20px}
+  .work-thumb{width:100%;height:140px;border-radius:6px;margin-bottom:20px;display:flex;align-items:center;justify-content:center;font-size:32px}
+  .thumb-a{background:#E6F1FB}
+  .thumb-b{background:#EAF3DE}
+  .thumb-c{background:#FAEEDA}
+  .work-title{font-size:16px;font-weight:700;letter-spacing:-0.3px;margin-bottom:6px}
+  .work-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+  .tag{font-size:11px;font-weight:500;padding:3px 8px;border-radius:4px;background:var(--color-background-secondary);color:var(--color-text-secondary);border:0.5px solid var(--color-border-tertiary)}
+  .work-arrow{font-size:18px;transition:transform 0.2s;display:inline-block;color:var(--color-text-secondary)}
+  .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:var(--color-border-tertiary);border:1px solid var(--color-border-tertiary)}
+  .skill-item{background:var(--color-background-primary);padding:20px 24px}
+  .skill-name{font-size:14px;font-weight:500;margin-bottom:4px}
+  .skill-level{font-size:12px;color:var(--color-text-secondary)}
+  .skill-bar{height:2px;background:var(--color-border-tertiary);border-radius:1px;margin-top:10px;overflow:hidden}
+  .skill-fill{height:100%;background:var(--color-text-primary);border-radius:1px}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+  .about-bio{font-size:16px;line-height:1.75;color:var(--color-text-secondary)}
+  .about-bio strong{color:var(--color-text-primary);font-weight:500}
+  .about-details{display:flex;flex-direction:column;gap:16px}
+  .detail-row{display:flex;justify-content:space-between;align-items:center;padding-bottom:16px;border-bottom:0.5px solid var(--color-border-tertiary);font-size:13px}
+  .detail-row:last-child{border-bottom:none;padding-bottom:0}
+  .detail-key{color:var(--color-text-secondary)}
+  .detail-val{font-weight:500}
+  .contact-section{padding:56px 32px}
+  .contact-big{font-size:clamp(28px,5vw,52px);font-weight:700;letter-spacing:-1.5px;line-height:1.1;margin-bottom:12px}
+  .contact-sub{font-size:15px;color:var(--color-text-secondary);margin-bottom:32px}
+  .contact-links{display:flex;gap:12px;flex-wrap:wrap}
+  .contact-link{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:500;padding:10px 18px;border:0.5px solid var(--color-border-tertiary);border-radius:6px;cursor:pointer;text-decoration:none;color:var(--color-text-primary);transition:background 0.15s}
+  .contact-link:hover{background:var(--color-background-secondary)}
+  .footer{padding:20px 32px;border-top:1px solid var(--color-border-tertiary);display:flex;justify-content:space-between;align-items:center}
+  .footer-copy{font-size:12px;color:var(--color-text-secondary)}
+  .footer-mono{font-family:'Space Mono',monospace;font-size:11px;color:var(--color-text-secondary)}
+  @media(max-width:600px){
+    .about-grid{grid-template-columns:1fr}
+    .stats{flex-wrap:wrap}
+    .stat{border-right:none;border-bottom:1px solid var(--color-border-tertiary)}
+  }
+</style>
+
+<h2 class="sr-only">Personal portfolio website for Alex Mercer, product designer and developer</h2>
+
+<div class="port">
+  <nav class="nav">
+    <div class="nav-logo">AM_</div>
+    <div class="nav-links">
+      <a>Work</a>
+      <a>About</a>
+      <a>Skills</a>
+    </div>
+    <button class="nav-cta">Hire me</button>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-tag">Available for work · Based in Berlin</div>
+    <h1 class="hero-name">Alex<br><span>Mercer.</span></h1>
+    <p class="hero-desc">Product designer & full-stack developer crafting bold, purposeful digital experiences. I turn complex problems into elegant interfaces.</p>
+    <div class="hero-actions">
+      <button class="btn-primary">View my work</button>
+      <button class="btn-secondary">Download CV</button>
+    </div>
+  </section>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-num">6+</div>
+      <div class="stat-label">Years experience</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">42</div>
+      <div class="stat-label">Projects shipped</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">18</div>
+      <div class="stat-label">Happy clients</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">3</div>
+      <div class="stat-label">Awwwards</div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="section-header">
+      <span class="section-title">Selected work</span>
+      <a class="section-link">View all →</a>
+    </div>
+    <div class="work-grid">
+      <div class="work-card">
+        <div class="work-num">01</div>
+        <div class="work-thumb thumb-a">
+          <i class="ti ti-brand-figma" style="font-size:40px;color:#185FA5" aria-hidden="true"></i>
+        </div>
+        <div class="work-title">Fintech Dashboard</div>
+        <div class="work-tags">
+          <span class="tag">Product Design</span>
+          <span class="tag">React</span>
+        </div>
+        <span class="work-arrow">↗</span>
+      </div>
+      <div class="work-card">
+        <div class="work-num">02</div>
+        <div class="work-thumb thumb-b">
+          <i class="ti ti-device-mobile" style="font-size:40px;color:#3B6D11" aria-hidden="true"></i>
+        </div>
+        <div class="work-title">Health Tracking App</div>
+        <div class="work-tags">
+          <span class="tag">iOS Design</span>
+          <span class="tag">SwiftUI</span>
+        </div>
+        <span class="work-arrow">↗</span>
+      </div>
+      <div class="work-card">
+        <div class="work-num">03</div>
+        <div class="work-thumb thumb-c">
+          <i class="ti ti-shopping-bag" style="font-size:40px;color:#854F0B" aria-hidden="true"></i>
+        </div>
+        <div class="work-title">E-commerce Rebrand</div>
+        <div class="work-tags">
+          <span class="tag">Branding</span>
+          <span class="tag">Next.js</span>
+        </div>
+        <span class="work-arrow">↗</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <span class="section-title">Skills</span>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-item">
+        <div class="skill-name">UI/UX Design</div>
+        <div class="skill-level">Expert</div>
+        <div class="skill-bar"><div class="skill-fill" style="width:95%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-name">React / Next.js</div>
+        <div class="skill-level">Advanced</div>
+        <div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-name">Figma</div>
+        <div class="skill-level">Expert</div>
+        <div class="skill-bar"><div class="skill-fill" style="width:97%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-name">TypeScript</div>
+        <div class="skill-level">Advanced</div>
+        <div class="skill-bar"><div class="skill-fill" style="width:82%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-name">Motion Design</div>
+        <div class="skill-level">Proficient</div>
+        <div class="skill-bar"><div class="skill-fill" style="width:74%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-name">Node / PostgreSQL</div>
+        <div class="skill-level">Proficient</div>
+        <div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <span class="section-title">About</span>
+    </div>
+    <div class="about-grid">
+      <p class="about-bio">I'm a designer-developer hybrid with a obsession for <strong>craft and clarity</strong>. I've worked with startups, agencies, and Fortune 500s — always pushing for work that's both <strong>beautiful and functional</strong>.<br><br>When I'm not at the desk, I'm probably hiking somewhere cold or hunting for the best espresso in Berlin.</p>
+      <div class="about-details">
+        <div class="detail-row">
+          <span class="detail-key">Location</span>
+          <span class="detail-val">Berlin, Germany</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-key">Availability</span>
+          <span class="detail-val" style="color:#3B6D11">Open to work</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-key">Focus</span>
+          <span class="detail-val">Product, Brand, Dev</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-key">Languages</span>
+          <span class="detail-val">EN, DE, FR</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-key">Education</span>
+          <span class="detail-val">TU Berlin · HCI</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-section">
+    <div class="contact-big">Let's build<br>something great.</div>
+    <p class="contact-sub">Open to freelance projects, full-time roles, and interesting collaborations.</p>
+    <div class="contact-links">
+      <a class="contact-link"><i class="ti ti-mail" style="font-size:16px" aria-hidden="true"></i>hello@alexmercer.io</a>
+      <a class="contact-link"><i class="ti ti-brand-linkedin" style="font-size:16px" aria-hidden="true"></i>LinkedIn</a>
+      <a class="contact-link"><i class="ti ti-brand-github" style="font-size:16px" aria-hidden="true"></i>GitHub</a>
+      <a class="contact-link"><i class="ti ti-brand-twitter" style="font-size:16px" aria-hidden="true"></i>Twitter</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span class="footer-copy">© 2026 Alex Mercer. All rights reserved.</span>
+    <span class="footer-mono">v2.4.0</span>
+  </footer>
+</div>
